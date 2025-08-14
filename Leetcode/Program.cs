@@ -1,5 +1,6 @@
 ﻿using Leetcode.Container_With_Most_Water;
 using Leetcode.Jump_Game;
+using Leetcode.Shopping_Offers;
 using Leetcode.Two_Sum;
 
 namespace Leetcode;
@@ -33,6 +34,15 @@ public static class Solutions
         var sol = new JumpGameSolution();
         var jumpRes = sol.CanJump([1, 2, 3]);
         Console.WriteLine(jumpRes);
+        // -----------------------------------------------------------
+        // Shopping Offers
+        // -----------------------------------------------------------
+        var shoppingOfferSolution = new ShoppingOfferSolution();
+        shoppingOfferSolution.ShoppingOffers(
+            [2, 5],
+            [[3, 0, 5], [1, 2, 10]],
+            [3, 2]
+        );
         // -----------------------------------------------------------
 
     }
