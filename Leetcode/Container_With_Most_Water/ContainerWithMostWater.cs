@@ -1,9 +1,9 @@
-﻿namespace Leetcode;
+﻿namespace Leetcode.Container_With_Most_Water;
 
 /// <summary>
 /// Microsoft Array Question Container with most water (Medium)
 /// </summary>
-public static class ContainerWithMostWater
+public static class ContainerWithMostWaterSolution
 {
     /// <summary>
     /// Time complexity: O(n²)
