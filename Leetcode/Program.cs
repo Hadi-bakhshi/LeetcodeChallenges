@@ -38,11 +38,22 @@ public static class Solutions
         // Shopping Offers
         // -----------------------------------------------------------
         var shoppingOfferSolution = new ShoppingOfferSolution();
-        shoppingOfferSolution.ShoppingOffers(
-            [2, 5],
-            [[3, 0, 5], [1, 2, 10]],
-            [3, 2]
-        );
+        var min = shoppingOfferSolution.ShoppingOffers(
+             [1, 1, 1],
+             [[1, 1, 0, 0], [2, 2, 1, 9]],
+             [1, 1, 0]
+         );
+        //var min = shoppingOfferSolution.ShoppingOffers(
+        //     [1, 1, 1],
+        //     [[1, 1, 0, 0], [2, 2, 1, 0]],
+        //     [1, 1, 1]
+        // );
+        //var min = shoppingOfferSolution.ShoppingOffers(
+        //     [1, 1, 1],
+        //     [[1, 1, 1, 0], [2, 2, 1, 1]],
+        //     [1, 1, 0]
+        // );
+        Console.WriteLine(min);
         // -----------------------------------------------------------
 
     }

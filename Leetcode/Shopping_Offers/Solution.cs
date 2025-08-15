@@ -23,8 +23,8 @@ public class ShoppingOfferSolution
     /// <exception cref="NotImplementedException"></exception>
     public int ShoppingOffers(IList<int> price, IList<IList<int>> special, IList<int> needs)
     {
-        var n = price.Count;
         var priceWithoutSpecial = 0;
+        var compareInfo = new List<CompareInfo>();
         for (int i = 0; i < needs.Count; i++)
         {
             var itemPrice = price[i] * needs[i];
@@ -35,16 +35,105 @@ public class ShoppingOfferSolution
             var oneS = special[i];
             for (int j = 0; j < oneS.Count; j++)
             {
+
                 var jItem = oneS[j];
-                if(jItem > needs[i])
+                var lastIndex = oneS.Count - 1;
+                if (j != lastIndex && jItem > needs[j])
                 {
-                    continue;
+                    break;
+                }
+                if (j != lastIndex && jItem == needs[j])
+                {
+                    compareInfo.Add(new CompareInfo
+                    {
+                        Index = j,
+                        IsCountEqualTo = true,
+                        ItemCount = jItem,
+                        OfferIndex = i,
+                        OfferPrice = oneS.Last(),
+                        ItemPrice = price[j],
+                        NeededCount = null
+                    });
+
+
+                }
+                if (j != lastIndex && jItem < needs[j])
+                {
+                    compareInfo.Add(new CompareInfo
+                    {
+                        Index = j,
+                        IsCountEqualTo = false,
+                        ItemCount = jItem,
+                        OfferIndex = i,
+                        OfferPrice = oneS.Last(),
+                        NeededCount = needs[j] - jItem,
+                        ItemPrice = price[j]
+                    });
                 }
 
             }
 
         }
 
-        throw new NotImplementedException();
+        if (compareInfo.Count == 0 || priceWithoutSpecial == 0)
+        {
+            return priceWithoutSpecial;
+        }
+
+        var offersTotal = new List<int>();
+
+        compareInfo
+            .GroupBy(item => item.OfferIndex)
+            .Select(gp =>
+            {
+                var offerPrice = gp.First().OfferPrice;
+               
+                if (offerPrice == 0)
+                {
+                    if(gp.Where(item => !item.IsCountEqualTo).Count() >= 1)
+                    {
+                        var sum = gp.Sum(item => item.NeededCount * item.ItemPrice);
+                        
+                        offersTotal.Add(sum.Value);
+                        return sum;
+                    }
+                    if (gp.All(item => item.IsCountEqualTo))
+                    {
+                        offersTotal.Add(priceWithoutSpecial);
+                        return priceWithoutSpecial;
+                    }
+                    offersTotal.Add(0);
+                    return 0;
+                }
+                else
+                {
+                    var sum = gp
+                        .Where(item => !item.IsCountEqualTo)
+                        .Sum(item => item.NeededCount * item.ItemPrice);
+
+                    var totalPriceWithOffer = sum + offerPrice;
+                    offersTotal.Add(totalPriceWithOffer.Value);
+                    return totalPriceWithOffer;
+
+                }
+
+            })
+            .ToList();
+
+        return offersTotal.Min();
+
     }
+}
+
+
+public class CompareInfo
+{
+    public int Index { get; set; }
+    public bool IsCountEqualTo { get; set; }
+    public int ItemCount { get; set; }
+    public int OfferIndex { get; set; }
+    public int OfferPrice { get; set; }
+    public int ItemPrice { get; set; }
+    public int? NeededCount { get; set; }
+
 }
