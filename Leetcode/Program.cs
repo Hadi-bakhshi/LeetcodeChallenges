@@ -2,6 +2,7 @@
 using Leetcode.Jump_Game;
 using Leetcode.Shopping_Offers;
 using Leetcode.Two_Sum;
+using Leetcode.Top_K;
 
 namespace Leetcode;
 
@@ -55,6 +56,12 @@ public static class Solutions
         // );
         Console.WriteLine(min);
         // -----------------------------------------------------------
+
+        var kFre = new Solution();
+        var frequents = kFre.TopKFrequent([1], 1);
+        var frequent2 = kFre.TopKFrequentV2([3, 0, 1, 0], 1);
+        Console.WriteLine(string.Join(", ", frequents));
+        Console.WriteLine(string.Join(", ", frequent2));
 
     }
 }
