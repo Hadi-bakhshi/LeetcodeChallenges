@@ -3,6 +3,7 @@ using Leetcode.Jump_Game;
 using Leetcode.Shopping_Offers;
 using Leetcode.Two_Sum;
 using Leetcode.Top_K;
+using Leetcode.ValidSudoku;
 
 namespace Leetcode;
 
@@ -57,11 +58,25 @@ public static class Solutions
         Console.WriteLine(min);
         // -----------------------------------------------------------
 
-        var kFre = new Solution();
+        var kFre = new Top_K.Solution();
         var frequents = kFre.TopKFrequent([1], 1);
         var frequent2 = kFre.TopKFrequentV2([3, 0, 1, 0], 1);
         Console.WriteLine(string.Join(", ", frequents));
         Console.WriteLine(string.Join(", ", frequent2));
+        // -----------------------------------------------------------
+
+
+        var soduku = new ValidSudoku.Solution();
+        var isValid = soduku.IsValidSudoku([['8','3','.','.','7','.','.','.','.']
+,['6','.','.','1','9','5','.','.','.']
+,['.','9','8','.','.','.','.','6','.']
+,['8','.','.','.','6','.','.','.','3']
+,['4','.','.','8','.','3','.','.','1']
+,['7','.','.','.','2','.','.','.','6']
+,['.','6','.','.','.','.','2','8','.']
+,['.','.','.','4','1','9','.','.','5']
+,['.','.','.','.','8','.','.','7','9']]);
+        Console.WriteLine("The soduku is valid: {0}", isValid);
 
     }
 }
